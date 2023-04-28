@@ -1,16 +1,22 @@
-import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Alert, Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Button, Input, Text } from 'react-native-elements';
 import React, { useState } from 'react';
+import styled, { withTheme } from 'styled-components';
 
 import { supabase } from '../libs/supabase';
 
-export default function ResetPassword(event: any) {
-	const [ newPassword, setNewPassword ] = useState('');
+
+const Container = styled(View)`
+	background-color: ${(props: { theme: { backgroundColor: any } }) => props.theme.backgroundColor}
+`;
+
+function ResetPassword(event: any, props: any) {
+	const [ password, setPassword ] = useState('');
 	const [ error, setError ] = useState('');
 	const [ success, setSuccess ] = useState(false);
 	const [ loading, setLoading ] = useState(false);
 
-	
+<
 	async function handleResetPassword() {
 		const token = event.route.params.token;
 		const {data, error} = await supabase.auth.getUser(token);
@@ -34,33 +40,37 @@ export default function ResetPassword(event: any) {
 	}
 
 	return (
-		<View style={styles.container}>
-			{error && <Text style={styles.errorText}>{error}</Text>}
-			{success && <Text style={styles.successText}>Mot de passe réinitialisé avec succès</Text>}
-			<View style={styles.input}>
-				<Input
-					placeholder="Nouveau mot de passe"
-					secureTextEntry
-					value={newPassword}
-					onChangeText={(text) => setNewPassword(text)}
-				/>
-			</View>
-			<View>
-				<TouchableOpacity>
-					<Button
-						title={loading ? 'Loading' : 'Réinitialiser le mot de passe'}
-						disabled={loading}
-						onPress={handleResetPassword}
+
+		<Container>
+			<View style={styles.container}>
+				{error && <Text style={styles.errorText}>{error}</Text>}
+				{success && <Text style={styles.successText}>Mot de passe réinitialisé avec succès</Text>}
+				<View style={styles.input}>
+					<Input
+						placeholder="Nouveau mot de passe"
+						secureTextEntry
+						value={password}
+						onChangeText={(text) => setPassword(text)}
 					/>
-				</TouchableOpacity>
+				</View>
+				<View>
+					<TouchableOpacity>
+						<Button
+							title={loading ? 'Loading' : 'Réinitialiser le mot de passe'}
+							disabled={loading}
+							onPress={handleResetPassword}
+						/>
+					</TouchableOpacity>
+				</View>
 			</View>
-		</View>
+		</Container>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
+		height: Dimensions.get('screen').height,
+		maxHeight: '100%',
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
@@ -79,3 +89,5 @@ const styles = StyleSheet.create({
 		marginBottom: 20
 	}
 });
+
+export default withTheme(ResetPassword);
