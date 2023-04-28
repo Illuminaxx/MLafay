@@ -1,6 +1,6 @@
 import * as Linking from 'expo-linking';
 
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { useEffect, useState } from 'react';
 
@@ -41,7 +41,6 @@ export default function ForgetPassword({ navigation }: any) {
 	useEffect(() => {
 		async function handleInitialUrl() {
 			const initialUrl = await Linking.getInitialURL();
-			console.log('URL Initiale: ', initialUrl);
 			if (initialUrl) {
 				const token = extractToken(initialUrl);
 				if (token) {
