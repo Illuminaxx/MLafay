@@ -46,7 +46,6 @@ function ForgetPassword({ navigation }: any) {
 	useEffect(() => {
 		async function handleInitialUrl() {
 			const initialUrl = await Linking.getInitialURL();
-			console.log('URL Initiale: ', initialUrl);
 			if (initialUrl) {
 				const token = extractToken(initialUrl);
 				if (token) {

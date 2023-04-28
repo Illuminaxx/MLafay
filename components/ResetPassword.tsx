@@ -5,6 +5,7 @@ import styled, { withTheme } from 'styled-components';
 
 import { supabase } from '../libs/supabase';
 
+
 const Container = styled(View)`
 	background-color: ${(props: { theme: { backgroundColor: any } }) => props.theme.backgroundColor}
 `;
@@ -15,28 +16,31 @@ function ResetPassword(event: any, props: any) {
 	const [ success, setSuccess ] = useState(false);
 	const [ loading, setLoading ] = useState(false);
 
+<
 	async function handleResetPassword() {
 		const token = event.route.params.token;
-		const data = supabase.auth.getUser(token);
+		const {data, error} = await supabase.auth.getUser(token);
+		const pass = newPassword;
 		if (!data) {
-			setError('Vous devez être connecté pour mettre à jour votre mot de passe.');
+			setError('Vous devez être connecté pour mettre à jour votre mot de passe');
 			return;
 		}
 		try {
 			setLoading(true);
-			const { data, error } = await supabase.auth.updateUser({ password: password });
-			console.log('Response:', data);
+			const { data: updateUserData, error: updateUserError } = await supabase.auth.updateUser({ password: pass });
 			if (error) {
-				setPassword('Il y a eu une erreur lors de la réinitialisaton du mot de passe..');
+				setNewPassword('Il y a eu une erreur lors de la réinitialisaton du mot de passe..');
 			} else {
 				setSuccess(true);
+				
 			}
 		} catch (error) {
-			Alert.alert('Erreur !');
+			Alert.alert('Erreur !',);
 		}
 	}
 
 	return (
+
 		<Container>
 			<View style={styles.container}>
 				{error && <Text style={styles.errorText}>{error}</Text>}
