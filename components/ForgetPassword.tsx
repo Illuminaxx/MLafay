@@ -1,12 +1,17 @@
 import * as Linking from 'expo-linking';
 
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Button, Input } from 'react-native-elements';
+import styled, { withTheme } from 'styled-components';
 import { useEffect, useState } from 'react';
 
 import { FontAwesome } from '@expo/vector-icons';
 import React from 'react';
 import { supabase } from '../libs/supabase';
+
+const Container = styled(View)`
+	background-color: ${(props: { theme: { backgroundColor: any } }) => props.theme.backgroundColor}
+`;
 
 const extractToken = (url: string) => {
 	const match = url.match(/access_token=(.*?)(&|$)/);
@@ -16,7 +21,7 @@ const extractToken = (url: string) => {
 	return null;
 };
 
-export default function ForgetPassword({ navigation }: any) {
+function ForgetPassword({ navigation }: any) {
 	const [ email, setEmail ] = useState('');
 	const [ loading, setLoading ] = useState(false);
 
@@ -62,33 +67,37 @@ export default function ForgetPassword({ navigation }: any) {
 	}, []);
 
 	return (
-		<View style={styles.container}>
-			<View style={styles.inputReset}>
-				<Input
-					label="Email"
-					leftIcon={<FontAwesome name="envelope" size={25} />}
-					onChangeText={(text) => setEmail(text)}
-					value={email}
-					placeholder="email@address.com"
-					autoCapitalize={'none'}
-				/>
-			</View>
-			<View>
-				<TouchableOpacity>
-					<Button
-						title={loading ? 'Loading' : 'Send email'}
-						disabled={loading}
-						onPress={() => { handleForget();}}
+		<Container>
+			<View style={styles.container}>
+				<View style={styles.inputReset}>
+					<Input
+						label="Email"
+						leftIcon={<FontAwesome name="envelope" size={25} />}
+						onChangeText={(text) => setEmail(text)}
+						value={email}
+						placeholder="email@address.com"
+						autoCapitalize={'none'}
 					/>
-				</TouchableOpacity>
+				</View>
+				<View>
+					<TouchableOpacity>
+						<Button
+							title={loading ? 'Loading' : 'Send email'}
+							disabled={loading}
+							onPress={() => {
+								handleForget();
+							}}
+						/>
+					</TouchableOpacity>
+				</View>
 			</View>
-		</View>
+		</Container>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 3,
+		height: Dimensions.get('screen').height,
 		marginTop: 35,
 		paddingHorizontal: 20,
 		paddingBottom: 20
@@ -98,3 +107,5 @@ const styles = StyleSheet.create({
 		alignSelf: 'center'
 	}
 });
+
+export default withTheme(ForgetPassword);
