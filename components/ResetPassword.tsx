@@ -9,7 +9,7 @@ const Container = styled(View)`
 	background-color: ${(props: { theme: { backgroundColor: any } }) => props.theme.backgroundColor}
 `;
 
-function ResetPassword({ event }: { event: any }) {
+function ResetPassword(event: any ) {
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
 	const [success, setSuccess] = useState(false);
