@@ -10,16 +10,16 @@ const Container = styled(View)`
 	background-color: ${(props: { theme: { backgroundColor: any } }) => props.theme.backgroundColor}
 `;
 
-function ResetPassword(event: any, props: any) {
-	const [ password, setPassword ] = useState('');
-	const [ error, setError ] = useState('');
-	const [ success, setSuccess ] = useState(false);
-	const [ loading, setLoading ] = useState(false);
+function ResetPassword(event: any) {
+	const [newPassword, setNewPassword] = useState('');
+	const [error, setError] = useState('');
+	const [success, setSuccess] = useState(false);
+	const [loading, setLoading] = useState(false);
 
-<
+
 	async function handleResetPassword() {
 		const token = event.route.params.token;
-		const {data, error} = await supabase.auth.getUser(token);
+		const { data, error } = await supabase.auth.getUser(token);
 		const pass = newPassword;
 		if (!data) {
 			setError('Vous devez être connecté pour mettre à jour votre mot de passe');
@@ -27,7 +27,7 @@ function ResetPassword(event: any, props: any) {
 		}
 		try {
 			setLoading(true);
-			const { data: updateUserData, error: updateUserError } = await supabase.auth.updateUser({ password: pass });
+			const { data: updateUserData, error: updateUserError } = await supabase.auth.updateUser({ password: newPassword });
 			if (error) {
 				setNewPassword('Il y a eu une erreur lors de la réinitialisaton du mot de passe..');
 			} else {
@@ -35,7 +35,7 @@ function ResetPassword(event: any, props: any) {
 				
 			}
 		} catch (error) {
-			Alert.alert('Erreur !',);
+			Alert.alert('Erreur !');
 		}
 	}
 
@@ -49,8 +49,8 @@ function ResetPassword(event: any, props: any) {
 					<Input
 						placeholder="Nouveau mot de passe"
 						secureTextEntry
-						value={password}
-						onChangeText={(text) => setPassword(text)}
+						value={newPassword}
+						onChangeText={(text) => setNewPassword(text)}
 					/>
 				</View>
 				<View>

@@ -1,6 +1,6 @@
 import * as Linking from 'expo-linking';
 
-import { Alert, Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import styled, { withTheme } from 'styled-components';
 import { useEffect, useState } from 'react';

@@ -34,7 +34,7 @@ export default function App() {
 						)
 					}} />
 					<Stack.Screen name="ForgetPassword" component={ForgetPassword} options={{
-						title: 'Mot de pass oublié ?',
+						title: 'Mot de passe oublié ?',
 						headerRight: () => (
 							<Pressable onPress={toggleTheme}>
 								<FontAwesome5 name={theme === lightTheme ? 'sun' : 'moon'} size={24} color={theme.iconColor} />
