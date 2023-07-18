@@ -10,7 +10,7 @@ import React from 'react';
 import { supabase } from '../libs/supabase';
 
 const Container = styled(View)`
-	background-color: ${(props: { theme: { backgroundColor: any } }) => props.theme.backgroundColor}
+	background-color: ${(props: { theme: { backgroundColor: string } }) => props.theme.backgroundColor}
 `;
 
 const extractToken = (url: string) => {
@@ -22,8 +22,8 @@ const extractToken = (url: string) => {
 };
 
 function ForgetPassword({ navigation }: any) {
-	const [ email, setEmail ] = useState('');
-	const [ loading, setLoading ] = useState(false);
+	const [email, setEmail] = useState('');
+	const [loading, setLoading] = useState(false);
 
 	async function handleForget() {
 		try {

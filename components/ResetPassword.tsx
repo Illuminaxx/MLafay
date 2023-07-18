@@ -6,13 +6,13 @@ import styled, { withTheme } from 'styled-components';
 import { supabase } from '../libs/supabase';
 
 const Container = styled(View)`
-	background-color: ${(props: { theme: { backgroundColor: any } }) => props.theme.backgroundColor}
+	background-color: ${(props: { theme: { backgroundColor: string } }) => props.theme.backgroundColor}
 `;
 
 function ResetPassword(event: any ) {
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
-	const [success, setSuccess] = useState(false);
+	const [success, setSuccess] = useState(false); 
 	const [loading, setLoading] = useState(false);
 
 

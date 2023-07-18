@@ -11,7 +11,7 @@ import { StatusBar } from 'expo-status-bar';
 import { supabase } from '../libs/supabase';
 
 const Container = styled(View)`
-	background-color: ${(props: { theme: { backgroundColor: any } }) => props.theme.backgroundColor}
+	background-color: ${(props: { theme: { backgroundColor: string } }) => props.theme.backgroundColor}
 `;
 
 function Home(props: any) {
